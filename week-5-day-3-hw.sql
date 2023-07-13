@@ -37,17 +37,29 @@ group by c.customer_id;
 
 --4. List all customers that live in Nepal (use the city table)
 
+select concat(first_name, ' ', last_name) as full_name, city, country,  c.country_id
+from city c
+join country cy
+on cy.country_id = c.country_id
+join address a 
+on a.city_id = c.city_id 
+join customer cm 
+on cm.address_id = a.address_id 
+where country = 'Nepal'
 
-
--- Answer: 
+-- Answer: Kevin Schuler is the only customer who lives in Nepal.
 
 
 --5. Which staff member had the most transactions?
 
-select *
-from
+select concat(first_name, ' ', last_name) as full_name, count(rental_id)
+from staff s
+join rental r 
+on r.staff_id = s.staff_id
+group by full_name
 
--- Answer: 
+
+-- Answer: Mike Hillyer (8,040 transactions)
 
 
 --6. How many movies of each rating are there?
